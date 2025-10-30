@@ -1,0 +1,53 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom right, #e0f7fa, #e8f5e9);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  background: white;
+  margin-top: 40px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  width: 80%;
+  max-width: 900px;
+  text-align: center;
+}
+
+h1 {
+  color: #00796b;
+}
+
+.subtitle {
+  color: #388e3c;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+button {
+  background: #00796b;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #004d40;
+}
+
+#plot {
+  margin-top: 30px;
+}
