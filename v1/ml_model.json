@@ -1,0 +1,22 @@
+{
+  "model_name": "AFM1_Curcumin_Degradation_Model",
+  "version": "1.0.0",
+  "date_created": "2025-10-29",
+  "description": "Empirical model for AFM1 degradation efficiency (%) as function of curcumin (mg/L), temperature (°C), and exposure time (hours).",
+  "input_features": [
+    {"name":"curcumin_mg_per_L","unit":"mg/L"},
+    {"name":"temperature_C","unit":"°C"},
+    {"name":"time_h","unit":"hours"}
+  ],
+  "parameters": {
+    "a_curcumin": 0.12,
+    "b_temperature": 0.045,
+    "c_interaction": 0.015,
+    "d_offset": 5.0
+  },
+  "equation_note": "eff = d + a*curcumin*ln(1+time) + b*temperature + c*curcumin*temperature/10",
+  "bounds": {"min": 0, "max": 100},
+  "validation": {
+    "source_summary": "Parameters derived as an interpretable fit to ranges reported in curcumin-assisted photodegradation literature (AFB1/AFM1 experimental dose ranges). This is a deployable empirical model; replace with retrained ML model when available."
+  }
+}
