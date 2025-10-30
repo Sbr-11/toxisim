@@ -1,0 +1,65 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.5s, color 0.5s;
+}
+
+:root {
+  --blue: #007acc;
+  --green: #00cc99;
+  --bg: #f0f9ff;
+  --text: #0b2033;
+}
+
+.dark {
+  --bg: #0b2033;
+  --text: #f0f9ff;
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(45deg, var(--blue), var(--green));
+  color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo {
+  width: 50px;
+  vertical-align: middle;
+}
+
+.animated-title {
+  font-size: 1.6rem;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px var(--blue); }
+  to { text-shadow: 0 0 20px var(--green); }
+}
+
+.controls, .results, .ml-section, .upload-section {
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: white;
+}
+
+button {
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--green);
+}
