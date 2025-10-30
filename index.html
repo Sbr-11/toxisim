@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToxiSim</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+  <div class="theme-toggle">
+    <button id="themeBtn">🌞 / 🌙</button>
+  </div>
+
+  <header>
+    <img src="assets/img/toxisim_logo.png" alt="ToxiSim Logo" class="logo">
+    <h1>ToxiSim</h1>
+    <p>Interactive contaminant detoxification simulator using Python (Pyodide) and JavaScript</p>
+  </header>
+
+  <div class="controls">
+    <label>Initial Concentration (mg/L): <input id="conc0" type="number" value="1.0"></label>
+    <label>Curcumin Dose (mg/L): <input id="curcumin" type="number" value="0.5"></label>
+    <label>Temperature (°C): <input id="temp" type="number" value="25"></label>
+    <label>Simulation Time (h): <input id="time" type="number" value="24"></label>
+    <button id="runSim">Run Simulation</button>
+    <button id="downloadData">💾 Download Data (CSV)</button>
+  </div>
+
+  <div id="plot" class="plot"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
