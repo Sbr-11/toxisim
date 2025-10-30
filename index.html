@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ToxiSim — AFM1 Decontamination Simulator</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js (plotting) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Pyodide (Python in browser) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ToxiSim</h1>
+      <p class="tagline">Interactive AFM1 degradation simulator — curcumin & temperature effects. Runs fully in-browser.</p>
+    </header>
+
+    <section class="controls">
+      <div class="field">
+        <label for="initial">Initial AFM1 (ng/mL)</label>
+        <input id="initial" type="number" value="100" step="1" />
+      </div>
+
+      <div class="field">
+        <label for="curcumin">Curcumin (mg/L)</label>
+        <input id="curcumin" type="number" value="5" step="0.1" />
+      </div>
+
+      <div class="field">
+        <label for="temperature">Temperature (°C)</label>
+        <input id="temperature" type="number" value="25" step="0.5" />
+      </div>
+
+      <div class="field">
+        <label for="time">Simulation time (hours)</label>
+        <input id="time" type="number" value="24" step="1" />
+      </div>
+
+      <div class="buttons">
+        <button id="runBtn">▶ Run Simulation</button>
+        <button id="mlBtn">📈 ML Predict</button>
+        <button id="downloadCsvBtn">💾 Download Simulation CSV</button>
+        <button id="uploadBtn">⬆️ Upload CSV (compare)</button>
+        <input id="fileInput" type="file" accept=".csv" style="display:none" />
+      </div>
+    </section>
+
+    <section class="plot-area">
+      <canvas id="afm1Chart" aria-label="AFM1 concentration vs time"></canvas>
+    </section>
+
+    <section class="info">
+      <div id="metrics" class="card">Metrics will appear here after running a simulation.</div>
+      <div id="uploadResult" class="card" style="display:none;"></div>
+    </section>
+
+    <footer>
+      <small>Built with Pyodide · Chart.js · Open-source</small>
+    </footer>
+  </div>
+
+  <!-- Model & app scripts -->
+  <script src="ml.js"></script>
+  <script src="py_runner.js"></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
