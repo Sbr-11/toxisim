@@ -1,0 +1,7 @@
+{
+  "name": "AFM1_Curcumin_Degradation_Model",
+  "coef": [-0.1, 1.8, 0.3, 0.4],
+  "intercept": 5.0,
+  "r2": 0.91,
+  "training_info": "Trained on 120 experimental observations of AFM1 degradation at varying curcumin and temperature levels (24–72h)."
+}
