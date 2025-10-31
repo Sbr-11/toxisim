@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ToxiSim — AFM1 Detox Dashboard</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Plotly for interactive plots -->
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+
+  <!-- Pyodide (pinned) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+  <div class="app">
+    <nav class="topbar">
+      <div class="brand">ToxiSim</div>
+      <div class="tag">AFM1 decontamination — Curcumin-assisted simulation & recommendations</div>
+    </nav>
+
+    <main class="main-grid">
+
+      <section class="panel controls-panel">
+        <h2>Inputs</h2>
+
+        <div class="row">
+          <label>Contaminant</label>
+          <select id="contaminant"><option>AFM1</option></select>
+        </div>
+
+        <div class="row">
+          <label>Initial concentration (ng/mL)</label>
+          <input id="initial" type="number" value="100" step="1" />
+        </div>
+
+        <div class="row">
+          <label>Curcumin dose (mg/L)</label>
+          <input id="curcumin" type="number" value="10" step="0.5" />
+        </div>
+
+        <div class="row">
+          <label>Temperature (°C)</label>
+          <input id="temperature" type="number" value="25" step="0.5" />
+        </div>
+
+        <div class="row">
+          <label>pH (optional)</label>
+          <input id="ph" type="number" value="7.0" step="0.1" />
+        </div>
+
+        <div class="row">
+          <label>Simulation time (hours)</label>
+          <input id="hours" type="number" value="48" step="1" />
+        </div>
+
+        <div class="buttons">
+          <button id="runBtn" class="primary">▶ Run simulation</button>
+          <button id="mlBtn" class="secondary">📈 ML predict</button>
+        </div>
+
+        <div class="small-actions">
+          <input id="fileIn" type="file" accept=".csv" style="display:none" />
+          <button id="uploadBtn" class="link">Upload experimental CSV</button>
+          <button id="downloadCsvBtn" class="link">Download simulation CSV</button>
+          <button id="downloadReportBtn" class="link">Download report (HTML)</button>
+        </div>
+
+        <div class="info-block">
+          <button class="info-btn" data-info="model">Model details</button>
+          <button class="info-btn" data-info="howto">How to use</button>
+        </div>
+      </section>
+
+      <section class="panel plots-panel">
+        <div class="plot-row">
+          <div id="plot-main" class="plot"></div>
+        </div>
+        <div class="plot-row split">
+          <div id="plot-sensitivity" class="plot small"></div>
+          <div id="plot-bar" class="plot small"></div>
+        </div>
+      </section>
+
+      <section class="panel insights-panel">
+        <h2>Insights & Recommendations</h2>
+        <div id="insights" class="insights">
+          <p>Run the simulation to see insights appear here.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <small>Built with Pyodide & Plotly — runs entirely in your browser. Data stays local.</small>
+    </footer>
+
+    <!-- Info modal -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <button id="modalClose" class="modal-close">✕</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- App scripts -->
+  <script src="ml.js"></script>
+  <script src="py_runner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
