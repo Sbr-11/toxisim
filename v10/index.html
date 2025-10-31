@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AFM1 Curcumin Simulation Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.plot.ly/plotly-2.28.1.min.js"></script>
+</head>
+<body>
+<header>
+    <h1>AFM1 Decontamination Simulation with Curcumin</h1>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tablink active" onclick="openStep(event, 'Step1')">Step 1: Sample Prep</button>
+        <button class="tablink" onclick="openStep(event, 'Step2')">Step 2: Spiking</button>
+        <button class="tablink" onclick="openStep(event, 'Step3')">Step 3: Reaction</button>
+        <button class="tablink" onclick="openStep(event, 'Step4')">Step 4: Assays</button>
+        <button class="tablink" onclick="openStep(event, 'Step5')">Step 5: Results</button>
+        <button class="tablink" onclick="openStep(event, 'Step6')">Step 6: Recommendations</button>
+    </div>
+
+    <!-- Step 1 -->
+    <div id="Step1" class="tabcontent active">
+        <h2>Step 1: Prepare Samples</h2>
+        <label for="milk-type">Select Milk Type:</label>
+        <select id="milk-type">
+            <option>Cow Milk</option>
+            <option>Pasteurized Milk</option>
+            <option>Almond Milk</option>
+            <option>Coconut Milk</option>
+            <option>Yogurt</option>
+            <option>Cheese</option>
+        </select>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="Step2" class="tabcontent">
+        <h2>Step 2: Spiking AFM1</h2>
+        <label for="afm1-concentration">AFM1 Concentration (µg/L)</label>
+        <input type="number" id="afm1-concentration" value="0.05" step="0.01">
+        <small>Default AFM1 concentration is 0.05 µg/L. You can adjust the dose group below:</small>
+        <label for="dose-group">Dose Group (fold increments)</label>
+        <input type="number" id="dose-group" value="3" step="1">
+    </div>
+
+    <!-- Step 3 -->
+    <div id="Step3" class="tabcontent">
+        <h2>Step 3: Reaction with Curcumin</h2>
+        <label for="curcumin-dose">Initial Curcumin Dose (mg/L):</label>
+        <input type="number" id="curcumin-dose" value="10" step="1">
+        <label for="curcumin-batches">Number of Curcumin Batches:</label>
+        <input type="number" id="curcumin-batches" value="3" step="1">
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" id="temperature" value="25" step="1">
+        <label for="reaction-time">Reaction Time (hours):</label>
+        <input type="number" id="reaction-time" value="2" step="0.5">
+        <label for="adsorbent">Adsorbent:</label>
+        <select id="adsorbent">
+            <option>None</option>
+            <option>Activated Charcoal</option>
+            <option>Clay</option>
+            <option>Silica</option>
+        </select>
+    </div>
+
+    <!-- Step 4 -->
+    <div id="Step4" class="tabcontent">
+        <h2>Step 4: Assays</h2>
+        <label for="assay-type">Select Assay:</label>
+        <select id="assay-type">
+            <option>INFOGEST</option>
+            <option>Spectrophotometry</option>
+            <option>ELISA</option>
+            <option>HPLC</option>
+        </select>
+        <button onclick="runSimulation()">Run Simulation</button>
+        <div id="simulation-status"></div>
+    </div>
+
+    <!-- Step 5 -->
+    <div id="Step5" class="tabcontent">
+        <h2>Step 5: Results</h2>
+        <div id="plots">
+            <div id="afm1-time-graph"></div>
+            <div id="curcumin-kinetics-graph"></div>
+            <div id="spider-graph"></div>
+            <div id="heatmap-graph"></div>
+        </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div id="Step6" class="tabcontent">
+        <h2>Step 6: Recommendations & Insights</h2>
+        <div id="recommendations"></div>
+        <button onclick="downloadReport()">Download Report (HTML)</button>
+    </div>
+
+    <div class="navigation">
+        <button onclick="prevStep()">Previous</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+</div>
+
+<script src="py_runner.js"></script>
+<script src="recommendation.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
