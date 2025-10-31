@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFM1-Curcumin Simulation Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>AFM1–Curcumin Simulation Dashboard</h1>
+
+    <div class="tabs">
+      <button class="tab active" data-step="step1" onclick="openStep('step1')">1. Sample</button>
+      <button class="tab" data-step="step2" onclick="openStep('step2')">2. Spiking</button>
+      <button class="tab" data-step="step3" onclick="openStep('step3')">3. Reaction</button>
+      <button class="tab" data-step="step4" onclick="openStep('step4')">4. Assay</button>
+      <button class="tab" data-step="results" onclick="openStep('results')">5. Results</button>
+    </div>
+
+    <!-- Step 1 -->
+    <div id="step1" class="step" style="display:block;">
+      <h2>Step 1: Select Sample</h2>
+      <select id="sampleType">
+        <option>Raw Milk</option>
+        <option>Pasteurized Milk</option>
+        <option>Almond Milk</option>
+        <option>Coconut Milk</option>
+        <option>Yogurt</option>
+        <option>Cheese</option>
+      </select>
+      <button onclick="openStep('step2')">Next ➜</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="step2" class="step">
+      <h2>Step 2: AFM1 Spiking</h2>
+      <p>Default AFM1 concentration: 0.05 µg/L. Adjust dose group below.</p>
+      <input type="number" id="dose" value="1.0" step="0.1" min="0.1" />
+      <button onclick="openStep('step3')">Next ➜</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="step3" class="step">
+      <h2>Step 3: Reaction Conditions</h2>
+      <div class="grid">
+        <label>Temperature (°C)</label>
+        <input type="number" id="temp" value="37" min="10" max="60" />
+        <label>Reaction Time (min)</label>
+        <input type="number" id="time" value="60" min="10" max="300" />
+      </div>
+      <button onclick="runSimulation()">Run Simulation</button>
+      <div id="status"></div>
+      <button id="nextToResults" style="display:none;" onclick="showResults()">Next ➜</button>
+    </div>
+
+    <!-- Step 4 -->
+    <div id="step4" class="step">
+      <h2>Step 4: Select Assay</h2>
+      <select id="assayType">
+        <option>Spectrophotometry</option>
+        <option>HPLC</option>
+        <option>LC-MS/MS</option>
+        <option>INFOGEST</option>
+        <option>ELISA</option>
+      </select>
+      <button onclick="openStep('step3')">Back</button>
+      <button onclick="openStep('results')">Next ➜</button>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="step">
+      <h2>Simulation Results</h2>
+      <div id="resultGraph" class="plot"></div>
+      <div id="recommendationBox" class="recommendations"></div>
+    </div>
+  </div>
+
+  <script src="py_runner.js"></script>
+  <script src="recommendation.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
