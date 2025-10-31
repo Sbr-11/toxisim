@@ -1,0 +1,25 @@
+Sample,AFM1 (mg/L),Curcumin Dose (mg/L),Temperature (C),Time (h),Binding Efficiency (%),Adsorption Rate
+Cow Milk,0.45,25,25,1,54,0.54
+Cow Milk,0.30,50,30,2,76,0.76
+Cow Milk,0.20,75,35,3,88,0.88
+Cow Milk,0.12,100,40,4,94,0.94
+Pasteurized Milk,0.40,25,25,1,50,0.50
+Pasteurized Milk,0.26,50,30,2,72,0.72
+Pasteurized Milk,0.18,75,35,3,85,0.85
+Pasteurized Milk,0.11,100,40,4,92,0.92
+Almond Milk,0.48,25,25,1,46,0.46
+Almond Milk,0.35,50,30,2,65,0.65
+Almond Milk,0.25,75,35,3,78,0.78
+Almond Milk,0.14,100,40,4,90,0.90
+Coconut Milk,0.50,25,25,1,48,0.48
+Coconut Milk,0.34,50,30,2,70,0.70
+Coconut Milk,0.24,75,35,3,81,0.81
+Coconut Milk,0.13,100,40,4,91,0.91
+Yogurt,0.55,25,25,1,44,0.44
+Yogurt,0.38,50,30,2,67,0.67
+Yogurt,0.26,75,35,3,79,0.79
+Yogurt,0.15,100,40,4,89,0.89
+Cheese,0.58,25,25,1,42,0.42
+Cheese,0.39,50,30,2,64,0.64
+Cheese,0.28,75,35,3,77,0.77
+Cheese,0.17,100,40,4,88,0.88
