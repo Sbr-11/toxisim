@@ -1,0 +1,12 @@
+{
+  "model_name": "AFM1_Curcumin_Empirical",
+  "version": "1.0",
+  "description": "Empirical, explainable regression-like parameters for predicting %degradation efficiency. Inputs: curcumin_mgL, temperature_C, time_h.",
+  "parameters": {
+    "a_curcumin": 0.12,
+    "b_temperature": 0.045,
+    "c_interaction": 0.015,
+    "d_offset": 5.0
+  },
+  "notes": "eff = d + a*curcumin*ln(1+time) + b*temperature + c*curcumin*temperature/10; outputs are clamped 0..100"
+}
