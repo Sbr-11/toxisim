@@ -1,0 +1,4 @@
+sample,AFM1_initial,curcumin_dose,temperature,adsorbent,adsorbent_dose,time
+pasteurizedMilk,0.05,50,25,none,0,2
+almondMilk,0.08,50,25,activatedCarbon,0.5,2
+yogurt,0.07,60,30,bentonite,0.3,2
