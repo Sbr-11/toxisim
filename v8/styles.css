@@ -1,0 +1,70 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #e6f2ff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+h1, h2 {
+    color: #003366;
+}
+
+.tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: #99ccff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: #0066cc;
+    color: white;
+}
+
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.next-btn {
+    padding: 10px 20px;
+    margin-top: 15px;
+    background: #009933;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background: #006622;
+}
+
+input, select {
+    padding: 8px;
+    margin: 5px 0;
+    width: 200px;
+}
