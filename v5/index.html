@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ToxiSim — AFM1 Scientific Dashboard</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Plotly (interactive plots) -->
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+
+  <!-- Pyodide (pinned) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+  <!-- Use module for app to allow top-level await and clean imports -->
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-title">ToxiSim</div>
+        <div class="brand-sub">AFM1 Decontamination — Curcumin-assisted simulation</div>
+      </div>
+      <nav class="nav">
+        <button class="tab-btn active" data-tab="simulate">Simulate</button>
+        <button class="tab-btn" data-tab="results">Results</button>
+        <button class="tab-btn" data-tab="data">Data</button>
+        <button class="tab-btn" data-tab="report">Report</button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <!-- SIMULATE TAB -->
+      <section id="tab-simulate" class="tab-panel active">
+        <div class="grid">
+          <div class="card card-panel">
+            <h3>Simulation inputs</h3>
+            <div class="form-row">
+              <label>Contaminant</label>
+              <select id="contaminant"><option>AFM1</option></select>
+            </div>
+
+            <div class="form-row two">
+              <label>Initial concentration</label>
+              <input id="initial" type="number" value="100" step="1" aria-label="Initial concentration ng/mL">
+              <small class="muted">ng/mL</small>
+            </div>
+
+            <div class="form-row two">
+              <label>Curcumin dose</label>
+              <input id="curcumin" type="number" value="10" step="0.5">
+              <small class="muted">mg/L</small>
+            </div>
+
+            <div class="form-row two">
+              <label>Temperature</label>
+              <input id="temperature" type="number" value="25" step="0.5">
+              <small class="muted">°C</small>
+            </div>
+
+            <div class="form-row two">
+              <label>pH (optional)</label>
+              <input id="ph" type="number" value="7.0" step="0.1">
+            </div>
+
+            <div class="form-row two">
+              <label>Simulation time</label>
+              <input id="hours" type="number" value="48" step="1">
+              <small class="muted">hours</small>
+            </div>
+
+            <div class="actions">
+              <button id="runSim" class="btn primary">▶ Run simulation</button>
+              <button id="mlPredict" class="btn ghost">📈 ML predict</button>
+            </div>
+
+            <div class="small-actions">
+              <button id="uploadBtn" class="link">Upload experimental CSV</button>
+              <input id="fileInput" type="file" accept=".csv" style="display:none">
+              <button id="downloadCSV" class="link">Download simulation CSV</button>
+              <button id="downloadReport" class="link">Download report (HTML)</button>
+            </div>
+
+            <div class="info-notes">
+              <button class="info" data-info="model">Model details</button>
+              <button class="info" data-info="howto">How to use</button>
+            </div>
+          </div>
+
+          <div class="card card-panel metrics">
+            <h3>Quick metrics</h3>
+            <div id="metric-eff" class="metric">Efficiency: —</div>
+            <div id="metric-k" class="metric">Rate (k): —</div>
+            <div id="metric-final" class="metric">Final conc: —</div>
+            <div id="metric-half" class="metric">Half-life: —</div>
+            <div class="note muted">Tip: hover plots for exact values & zoom with box-select.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS TAB -->
+      <section id="tab-results" class="tab-panel">
+        <div class="plots-grid">
+          <div class="card panel-plot">
+            <h4>AFM1 decay (main)</h4>
+            <div id="plotMain" class="plot"></div>
+          </div>
+
+          <div class="card panel-plot small">
+            <h4>Sensitivity (dose)</h4>
+            <div id="plotSensitivity" class="plot"></div>
+          </div>
+
+          <div class="card panel-plot small">
+            <h4>Derived k vs dose</h4>
+            <div id="plotK" class="plot"></div>
+          </div>
+
+          <div class="card insights">
+            <h4>Insights & recommendations</h4>
+            <div id="insightsList">
+              <p class="muted">Run the simulation to generate insights.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA TAB -->
+      <section id="tab-data" class="tab-panel">
+        <div class="card">
+          <h3>Experimental dataset (example)</h3>
+          <div class="table-wrap">
+            <table id="dataTable">
+              <thead><tr><th>time (h)</th><th>afm1 (ng/mL)</th></tr></thead>
+              <tbody id="dataBody"></tbody>
+            </table>
+          </div>
+          <div class="muted small">You can upload your CSV (time,afm1) to overlay on plots.</div>
+        </div>
+      </section>
+
+      <!-- REPORT TAB -->
+      <section id="tab-report" class="tab-panel">
+        <div class="card">
+          <h3>Report preview</h3>
+          <div id="reportPreview" class="report-preview muted">Run simulation and click "Download report" to generate a full HTML report with plots and recommendations.</div>
+          <div style="margin-top:12px">
+            <button id="downloadReportBtn" class="btn primary">Download report (HTML)</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div>© ToxiSim — runs in your browser • Data stays local</div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <button id="closeModal" class="modal-close">✕</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
