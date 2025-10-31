@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFM1 Curcumin Simulation Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.plot.ly/plotly-2.26.2.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>AFM1 Curcumin Simulation Dashboard</h1>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-step="1">Step 1: Sample Prep</button>
+    <button class="tab-btn" data-step="2">Step 2: Spiking</button>
+    <button class="tab-btn" data-step="3">Step 3: Reaction</button>
+    <button class="tab-btn" data-step="4">Step 4: Assays</button>
+    <button class="tab-btn" data-step="5">Step 5: Results</button>
+    <button class="tab-btn" data-step="6">Step 6: Recommendations</button>
+  </div>
+
+  <div class="content">
+
+    <!-- Step 1: Sample Preparation -->
+    <div class="step-content" data-step="1">
+      <h2>Sample Preparation</h2>
+      <label>Select sample type:</label>
+      <select id="sampleType">
+        <option value="Pasteurized Milk">Pasteurized Milk</option>
+        <option value="Almond Milk">Almond Milk</option>
+        <option value="Coconut Milk">Coconut Milk</option>
+        <option value="Yogurt">Yogurt</option>
+        <option value="Cheese">Cheese</option>
+      </select>
+      <button id="step1Next">Next</button>
+    </div>
+
+    <!-- Step 2: Spiking -->
+    <div class="step-content" data-step="2">
+      <h2>Spiking</h2>
+      <label>AFM1 default dose (µg/L):</label>
+      <input type="number" id="afm1Dose" value="0.05" step="0.01">
+      <label>Dose group (folds, editable):</label>
+      <input type="text" id="doseGroup" value="1,2,4,8">
+      <button id="step2Next">Next</button>
+    </div>
+
+    <!-- Step 3: Reaction -->
+    <div class="step-content" data-step="3">
+      <h2>Curcumin Reaction</h2>
+      <label>Curcumin dose (mg/L, multiple batches possible):</label>
+      <input type="text" id="curcuminDose" value="50,100,150">
+      <label>Reaction temperature (°C):</label>
+      <input type="number" id="reactionTemp" value="37">
+      <label>Reaction time (hours):</label>
+      <input type="number" id="reactionTime" value="4">
+      <label>Adsorbent present?</label>
+      <select id="adsorbent">
+        <option value="None">None</option>
+        <option value="Activated Charcoal">Activated Charcoal</option>
+        <option value="Bentonite Clay">Bentonite Clay</option>
+      </select>
+      <button id="step3Next">Next</button>
+    </div>
+
+    <!-- Step 4: Assays -->
+    <div class="step-content" data-step="4">
+      <h2>Assay Selection</h2>
+      <label>Select assay type:</label>
+      <select id="assayType">
+        <option value="INFOGEST">INFOGEST</option>
+        <option value="Spectrophotometry">Spectrophotometry</option>
+        <option value="HPLC">HPLC</option>
+        <option value="ELISA">ELISA</option>
+      </select>
+      <button id="runSimulationBtn">Run Simulation</button>
+      <p id="simulationStatus"></p>
+    </div>
+
+    <!-- Step 5: Results -->
+    <div class="step-content" data-step="5">
+      <h2>Simulation Results</h2>
+      <div id="plotArea"></div>
+      <button id="step5Next">Next</button>
+    </div>
+
+    <!-- Step 6: Recommendations -->
+    <div class="step-content" data-step="6">
+      <h2>Recommendations & Learning Points</h2>
+      <div id="recommendationsText"></div>
+      <button id="downloadReport">Download Report</button>
+    </div>
+
+  </div>
+
+  <script type="module" src="app.js"></script>
+  <script type="module" src="py_runner.js"></script>
+  <script type="module" src="recommendation.js"></script>
+</body>
+</html>
