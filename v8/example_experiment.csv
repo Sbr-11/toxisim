@@ -1,0 +1,20 @@
+milk_type,afm1_conc,curcumin_dose,temp,time,adsorbent
+Cow Milk,0.5,10,25,2,False
+Cow Milk,0.5,15,25,2,False
+Cow Milk,1.0,20,30,4,True
+Almond Milk,0.5,10,25,2,False
+Almond Milk,0.7,12,30,3,True
+Coconut Milk,0.7,10,25,2,False
+Coconut Milk,1.0,15,30,4,True
+Soy Milk,0.6,10,25,2,False
+Soy Milk,1.0,15,30,3,True
+Yogurt,0.8,12,25,3,True
+Yogurt,1.2,20,30,5,True
+Cheese,0.8,10,25,2,False
+Cheese,1.0,15,30,4,True
+Cow Milk,1.2,20,30,5,True
+Almond Milk,1.5,25,35,6,True
+Coconut Milk,1.0,20,30,4,True
+Soy Milk,1.2,15,30,3,False
+Yogurt,1.5,25,35,5,True
+Cheese,1.8,30,35,6,True
