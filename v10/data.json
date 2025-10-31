@@ -1,0 +1,9 @@
+[
+{"milk":"Cow Milk","afm1":0.05,"curcumin":10,"temp":25,"time":2},
+{"milk":"Cow Milk","afm1":0.05,"curcumin":20,"temp":30,"time":2},
+{"milk":"Almond Milk","afm1":0.05,"curcumin":10,"temp":25,"time":2},
+{"milk":"Pasteurized Milk","afm1":0.05,"curcumin":15,"temp":27,"time":2},
+{"milk":"Coconut Milk","afm1":0.05,"curcumin":10,"temp":25,"time":3},
+{"milk":"Yogurt","afm1":0.05,"curcumin":12,"temp":28,"time":1.5},
+{"milk":"Cheese","afm1":0.05,"curcumin":18,"temp":30,"time":2}
+]
