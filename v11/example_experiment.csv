@@ -1,0 +1,31 @@
+SampleType,AFM1_Concentration_mgL,Curcumin_mgL,Temperature_C,Time_h,Removal_Percent
+Cow Milk,0.05,50,25,1,15
+Cow Milk,0.05,50,25,2,25
+Cow Milk,0.05,50,25,4,45
+Cow Milk,0.05,50,30,1,18
+Cow Milk,0.05,50,30,2,30
+Cow Milk,0.05,50,30,4,50
+Almond Milk,0.05,50,25,1,10
+Almond Milk,0.05,50,25,2,20
+Almond Milk,0.05,50,25,4,35
+Almond Milk,0.05,50,30,1,12
+Almond Milk,0.05,50,30,2,25
+Almond Milk,0.05,50,30,4,40
+Coconut Milk,0.05,50,25,1,8
+Coconut Milk,0.05,50,25,2,18
+Coconut Milk,0.05,50,25,4,30
+Coconut Milk,0.05,50,30,1,10
+Coconut Milk,0.05,50,30,2,22
+Coconut Milk,0.05,50,30,4,35
+Pasteurized Milk,0.05,50,25,1,12
+Pasteurized Milk,0.05,50,25,2,22
+Pasteurized Milk,0.05,50,25,4,38
+Pasteurized Milk,0.05,50,30,1,15
+Pasteurized Milk,0.05,50,30,2,28
+Pasteurized Milk,0.05,50,30,4,45
+Yogurt,0.05,50,25,1,5
+Yogurt,0.05,50,25,2,12
+Yogurt,0.05,50,25,4,20
+Cheese,0.05,50,25,1,4
+Cheese,0.05,50,25,2,10
+Cheese,0.05,50,25,4,18
