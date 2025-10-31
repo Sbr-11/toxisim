@@ -1,0 +1,79 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background: #f3f6f9;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  background: #0052cc;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0.5rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.tab-btn {
+  padding: 0.5rem 1rem;
+  margin: 0 0.3rem;
+  border: none;
+  background: #e0e4e8;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: #0052cc;
+  color: white;
+}
+
+.step-content {
+  display: none;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.step-content h2 {
+  margin-top: 0;
+}
+
+.step-content label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.step-content input, .step-content select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #0052cc;
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background: #003d99;
+}
