@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ToxiSim — AFM1 Simulation Dashboard</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Plotly (interactive plotting) -->
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+
+  <!-- Pyodide (pinned) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+  <!-- App module (module so we can use top-level await) -->
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="title">ToxiSim</div>
+        <div class="subtitle">AFM1 decontamination — Curcumin reaction simulator</div>
+      </div>
+      <div class="header-actions">
+        <button id="openGuide" class="btn ghost">Guide</button>
+      </div>
+    </header>
+
+    <nav class="steps-nav" id="stepsNav">
+      <button class="step-btn active" data-step="1">1 • Prepare samples</button>
+      <button class="step-btn" data-step="2">2 • Spiking</button>
+      <button class="step-btn" data-step="3">3 • Reaction</button>
+      <button class="step-btn" data-step="4">4 • Assays</button>
+      <button class="step-btn" data-step="5">5 • Results</button>
+      <button class="step-btn" data-step="6">6 • Recommendations</button>
+    </nav>
+
+    <main class="main-grid">
+
+      <!-- STEP PANELS -->
+      <section id="step-1" class="step-panel active">
+        <div class="panel card">
+          <h2>Step 1 — Prepare samples</h2>
+          <p class="muted">Choose matrix and sample volume. This helps adapt kinetics & assay suggestions.</p>
+
+          <div class="form-row">
+            <label>Matrix</label>
+            <select id="matrixType">
+              <option value="raw_milk">Raw cow milk</option>
+              <option value="pasteurized">Pasteurized milk</option>
+              <option value="powder_milk">Reconstituted powdered milk</option>
+              <option value="soy_milk">Soy milk (plant-based)</option>
+            </select>
+          </div>
+
+          <div class="form-row two">
+            <label>Sample volume</label>
+            <input id="sampleVolume" type="number" value="50" step="1" />
+            <small class="muted">mL</small>
+          </div>
+
+          <div class="form-row">
+            <label>Notes (optional)</label>
+            <textarea id="sampleNotes" rows="3" placeholder="Any notes about sample origin, storage, etc."></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="nextTo2">Next — Spiking</button>
+            <button class="btn link" id="loadExample">Load example dataset</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="step-2" class="step-panel">
+        <div class="panel card">
+          <h2>Step 2 — Spiking</h2>
+          <p class="muted">Set initial AFM1 concentrations to spike the samples with (ng/mL).</p>
+
+          <div class="form-row">
+            <label>Initial AFM1 per sample</label>
+            <input id="initialAFM1" type="number" value="100" step="1" />
+          </div>
+
+          <div class="form-row">
+            <label>Number of dose groups</label>
+            <input id="doseGroups" type="number" value="4" min="1" max="8" />
+          </div>
+
+          <div class="form-row">
+            <label>Dose fold steps (e.g., 1,2,4,8)</label>
+            <input id="dosePattern" type="text" value="1,2,4,8" />
+            <small class="muted">Comma-separated multipliers of the initial AFM1</small>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="backTo1">Back</button>
+            <button class="btn primary" id="nextTo3">Next — Reaction</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="step-3" class="step-panel">
+        <div class="panel card">
+          <h2>Step 3 — Reaction with Curcumin</h2>
+          <p class="muted">Set curcumin dose, temperature, light (optional), and total simulation time.</p>
+
+          <div class="form-row two">
+            <label>Curcumin dose</label>
+            <input id="curcuminDose" type="number" value="10" step="0.5" />
+            <small class="muted">mg/L</small>
+          </div>
+
+          <div class="form-row two">
+            <label>Temperature</label>
+            <input id="reactionTemp" type="number" value="25" step="0.5" />
+            <small class="muted">°C</small>
+          </div>
+
+          <div class="form-row two">
+            <label>Light exposure</label>
+            <select id="light">
+              <option value="dark">Dark</option>
+              <option value="ambient">Ambient lab light</option>
+              <option value="uv">UV / Photostimulated</option>
+            </select>
+          </div>
+
+          <div class="form-row two">
+            <label>Total simulation time</label>
+            <input id="totalTime" type="number" value="48" step="1" />
+            <small class="muted">hours</small>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="backTo2">Back</button>
+            <button class="btn primary" id="runSim">Run simulation</button>
+          </div>
+
+          <div id="reactionInfo" class="muted small" style="margin-top:10px;">
+            The simulation calculates a first-order decay rate k derived from curcumin dose, temperature and light.
+          </div>
+        </div>
+      </section>
+
+      <section id="step-4" class="step-panel">
+        <div class="panel card">
+          <h2>Step 4 — Assays</h2>
+          <p class="muted">Select which assay(s) you will use to measure AFM1. Each assay has its own sensitivity and comments.</p>
+
+          <div class="form-row">
+            <label>Choose assay</label>
+            <select id="assayType">
+              <option value="hplc">HPLC-MS (recommended for accuracy)</option>
+              <option value="lcms">LC-MS/MS (gold standard)</option>
+              <option value="spectro">Spectrophotometry (low sensitivity)</option>
+              <option value="ifstest">Rapid immunoassay (ELISA / lateral flow)</option>
+              <option value="infogest">INFOGEST digestion + assay (food matrix)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Assay notes</label>
+            <textarea id="assayNotes" rows="3" placeholder="Assay-specific preparation notes"></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="backTo3">Back</button>
+            <button class="btn primary" id="nextTo5">Next — Results</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="step-5" class="step-panel">
+        <div class="panel card wide">
+          <h2>Step 5 — Results (Kinetics & Plots)</h2>
+
+          <div class="toolbar">
+            <label>Overlay experimental CSV:</label>
+            <input id="fileUpload" type="file" accept=".csv" />
+            <button id="downloadCsv" class="btn link">Download sim CSV</button>
+            <button id="downloadReport" class="btn primary">Download full report</button>
+          </div>
+
+          <div class="plots">
+            <div id="plotMain" class="plotLarge"></div>
+            <div class="plotRow">
+              <div id="plotDose" class="plotSmall"></div>
+              <div id="plotKvsTemp" class="plotSmall"></div>
+            </div>
+          </div>
+
+          <div id="resultsSummary" class="insights"></div>
+        </div>
+      </section>
+
+      <section id="step-6" class="step-panel">
+        <div class="panel card">
+          <h2>Step 6 — Recommendations & Learning Points</h2>
+          <div id="recommendations" class="insights"></div>
+
+          <div class="actions">
+            <button class="btn" id="backTo5">Back</button>
+            <button class="btn primary" id="downloadFinalReport">Download HTML report</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <small>Built with Pyodide & Plotly — runs in your browser. Data stays local.</small>
+    </footer>
+
+    <!-- Modal for info/help -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <button id="modalClose" class="modalClose">✕</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
