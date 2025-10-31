@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFM1-Curcumin Simulation Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.3/full/pyodide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>AFM1-Curcumin Simulation</h1>
+    <div class="tabs">
+      <button class="tablink active" onclick="openTab(event,'step1')">Step 1: Prepare Samples</button>
+      <button class="tablink" onclick="openTab(event,'step2')">Step 2: Spiking</button>
+      <button class="tablink" onclick="openTab(event,'step3')">Step 3: Curcumin Reaction</button>
+      <button class="tablink" onclick="openTab(event,'step4')">Step 4: Assays</button>
+      <button class="tablink" onclick="openTab(event,'step5')">Step 5: Run Simulation</button>
+      <button class="tablink" onclick="openTab(event,'step6')">Step 6: Results & Recommendations</button>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="step1" class="tabcontent active">
+      <h2>Step 1: Prepare Samples</h2>
+      <label>Select sample type:</label>
+      <select id="sampleType">
+        <option>Pasteurized Milk</option>
+        <option>Almond Milk</option>
+        <option>Coconut Milk</option>
+        <option>Yogurt</option>
+        <option>Cheese</option>
+      </select>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" class="tabcontent">
+      <h2>Step 2: Spiking</h2>
+      <p>Default AFM1 concentration: 0.05 mg/L</p>
+      <label>Set dose group (mg/L):</label>
+      <input type="number" id="afm1Dose" value="0.05" step="0.01">
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" class="tabcontent">
+      <h2>Step 3: Curcumin Reaction</h2>
+      <label>Curcumin dosage (mg/L):</label>
+      <input type="number" id="curcuminDose" value="50" step="10">
+      <label>Reaction temperature (°C):</label>
+      <input type="number" id="temperature" value="37" step="1">
+      <label>Reaction time (hours):</label>
+      <input type="number" id="reactionTime" value="4" step="1">
+      <label>Batch variations:</label>
+      <input type="checkbox" id="batchVariation"> Enable
+    </div>
+
+    <!-- STEP 4 -->
+    <div id="step4" class="tabcontent">
+      <h2>Step 4: Assays</h2>
+      <label>Select assay:</label>
+      <select id="assayType">
+        <option>INFOGEST</option>
+        <option>Spectrophotometry</option>
+        <option>HPLC</option>
+        <option>ELISA</option>
+      </select>
+    </div>
+
+    <!-- STEP 5 -->
+    <div id="step5" class="tabcontent">
+      <h2>Step 5: Run Simulation</h2>
+      <button id="runSimBtn">Run Simulation</button>
+      <p id="simStatus"></p>
+    </div>
+
+    <!-- STEP 6 -->
+    <div id="step6" class="tabcontent">
+      <h2>Step 6: Results & Recommendations</h2>
+      <div id="plotsContainer"></div>
+      <div id="recommendationsContainer"></div>
+      <button id="downloadReport">Download PDF Report</button>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script src="py_runner.js"></script>
+  <script src="recommendation.js"></script>
+</body>
+</html>
