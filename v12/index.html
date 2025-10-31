@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AFM1 Decontamination Simulation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+<header>
+    <h1>AFM1 Decontamination Simulation Dashboard</h1>
+</header>
+<div class="container">
+    <div class="tabs">
+        <button class="tablink active" onclick="openStep(event, 'Step1')">Step 1: Sample Preparation</button>
+        <button class="tablink" onclick="openStep(event, 'Step2')">Step 2: Spiking</button>
+        <button class="tablink" onclick="openStep(event, 'Step3')">Step 3: Curcumin Reaction</button>
+        <button class="tablink" onclick="openStep(event, 'Step4')">Step 4: Assays</button>
+        <button class="tablink" onclick="openStep(event, 'Step5')">Step 5: Results</button>
+        <button class="tablink" onclick="openStep(event, 'Step6')">Step 6: Recommendations</button>
+    </div>
+
+    <div id="Step1" class="tabcontent">
+        <h2>Sample Preparation</h2>
+        <label>Choose sample type:</label>
+        <select id="sampleType">
+            <option value="cowMilk">Cow Milk</option>
+            <option value="pasteurizedMilk">Pasteurized Milk</option>
+            <option value="almondMilk">Almond Milk</option>
+            <option value="coconutMilk">Coconut Milk</option>
+            <option value="yogurt">Yogurt</option>
+            <option value="cheese">Cheese</option>
+        </select>
+        <button onclick="nextStep('Step2')">Next</button>
+    </div>
+
+    <div id="Step2" class="tabcontent">
+        <h2>Spiking</h2>
+        <label>AFM1 Concentration (mg/L):</label>
+        <input type="number" id="afm1Concentration" value="0.5" step="0.05">
+        <small>Default AFM1 concentration for spiking. You can set your own dose group.</small>
+        <button onclick="nextStep('Step3')">Next</button>
+    </div>
+
+    <div id="Step3" class="tabcontent">
+        <h2>Curcumin Reaction</h2>
+        <label>Curcumin Dose (mg/L):</label>
+        <input type="number" id="curcuminDose" value="50" step="5">
+        <label>Temperature (°C):</label>
+        <input type="number" id="temperature" value="25" step="1">
+        <label>Time (hours):</label>
+        <input type="number" id="time" value="2" step="0.5">
+        <button onclick="nextStep('Step4')">Next</button>
+    </div>
+
+    <div id="Step4" class="tabcontent">
+        <h2>Assays</h2>
+        <label>Select assay:</label>
+        <select id="assayType">
+            <option value="spectrophotometry">Spectrophotometry</option>
+            <option value="INFOGEST">INFOGEST</option>
+            <option value="HPLC">HPLC</option>
+            <option value="ELISA">ELISA</option>
+        </select>
+        <button onclick="runSimulation()">Run Simulation</button>
+        <div id="simulationStatusContainer">
+            <p id="simulationStatus"></p>
+            <div id="progressBarContainer">
+                <div id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Step5" class="tabcontent">
+        <h2>Results</h2>
+        <div id="graphContainer"></div>
+        <div id="spiderContainer"></div>
+        <button onclick="nextStep('Step6')">Next</button>
+    </div>
+
+    <div id="Step6" class="tabcontent">
+        <h2>Recommendations & Learning Points</h2>
+        <div id="recommendationContainer"></div>
+        <button onclick="downloadReport()">Download Report</button>
+    </div>
+</div>
+
+<script src="py_runner.js"></script>
+<script src="recommendation.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
